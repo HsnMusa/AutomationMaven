@@ -9,17 +9,22 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
+import java.io.IOException;
 import java.util.List;
 
 @SpringBootApplication
 public class AutomationApplication {
-    static WebDriver driver = new ChromeDriver();
+    static WebDriver driver;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         SpringApplication.run(AutomationApplication.class, args);
-
-        System.setProperty("webdriver.gecko.driver", "D:/Devops/demo/automation/chromedriver.exe");
+        Resource resource = new ClassPathResource("chromedriver.exe");
+        String filePath = resource.getFile().getPath();
+        System.setProperty("webdriver.chrome.driver", filePath);
+        driver = new ChromeDriver();
 //        loginScreenTest();
 //        dropDownScreenTest();
 //        tableScreenTest();
